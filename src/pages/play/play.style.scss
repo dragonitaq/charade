@@ -1,3 +1,98 @@
-body {
-  font-family: 'Patrick Hand', cursive;
+.metrics {
+  display: flex;
+  justify-content: space-between;
+
+  .timer {
+    display: flex;
+    align-items: center;
+
+    .timer-count {
+      font-size: 3.5rem;
+      margin: 1rem 1rem;
+    }
+    .sand-timer-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      // fill: var(--color-secondary);
+    }
+  }
+
+  .score {
+    display: flex;
+    align-items: center;
+
+    .score-count {
+      font-size: 3.5rem;
+      margin: 1rem 1rem;
+    }
+    .checkmark-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      // fill: var(--color-tertiary);
+    }
+  }
+}
+
+.word-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+
+  .word {
+    font-size: 15rem;
+  }
+}
+
+.play-buttons {
+  display: flex;
+  justify-content: center;
+
+  .correct-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-tertiary);
+    margin-right: 10rem;
+    height: fit-content;
+    width: fit-content;
+    padding: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    
+    .correct-button__text{
+      font-size: 5rem;
+      
+    }
+    
+    .correct-button__shortcut{
+      font-size: 2rem;
+  
+    }
+  }
+  
+  .next-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-secondary);
+    height: fit-content;
+    width: fit-content;
+    font-size: 5rem;
+    padding: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    
+    .next-button__text{
+      font-size: 5rem;
+      
+    }
+    
+    .next-button__shortcut{
+    font-size: 2rem;
+
+  }
+  }
 }
