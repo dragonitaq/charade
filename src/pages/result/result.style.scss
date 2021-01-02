@@ -1,0 +1,62 @@
+.score-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem;
+
+  .icon-home {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+  .score {
+    text-align: center;
+  }
+
+  .correct-score {
+    font-size: 4rem;
+  }
+  .tried-score {
+    font-size: 2.5rem;
+  }
+
+  .icon-replay-button {
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+  }
+}
+
+.words-lists {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  justify-items: center;
+  padding: 2rem 1rem;
+
+  .words-list__title {
+    text-align: center;
+    font-size:  2.5rem;
+  }
+
+  .words-list {
+    width: 30rem;
+    height: 20rem;
+    border-radius: 30px;
+    padding: 1rem;
+
+    p {
+      text-align: center;
+      font-size: 2rem;
+    }
+  }
+
+  .correct-words-list {
+    background-color: var(--color-tertiary);
+  }
+
+  .tried-words-list {
+    background-color: var(--color-secondary);
+  }
+}

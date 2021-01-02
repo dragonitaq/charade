@@ -1,6 +1,7 @@
 .metrics {
   display: flex;
   justify-content: space-between;
+  padding: 0.5rem 2rem;
 
   .timer {
     display: flex;
@@ -46,7 +47,15 @@
 
 .play-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+
+  .exit-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+  }
 
   .correct-button {
     display: flex;
@@ -54,24 +63,22 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-tertiary);
-    margin-right: 10rem;
+    // margin-right: 3rem;
     height: fit-content;
     width: fit-content;
     padding: 1.5rem;
     border-radius: 50px;
     cursor: pointer;
-    
-    .correct-button__text{
+
+    .correct-button__text {
       font-size: 5rem;
-      
     }
-    
-    .correct-button__shortcut{
+
+    .correct-button__shortcut {
       font-size: 2rem;
-  
     }
   }
-  
+
   .next-button {
     display: flex;
     flex-direction: column;
@@ -84,15 +91,19 @@
     padding: 1.5rem;
     border-radius: 50px;
     cursor: pointer;
-    
-    .next-button__text{
-      font-size: 5rem;
-      
-    }
-    
-    .next-button__shortcut{
-    font-size: 2rem;
 
+    .next-button__text {
+      font-size: 5rem;
+    }
+
+    .next-button__shortcut {
+      font-size: 2rem;
+    }
   }
+
+  .pause-button {
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
   }
 }

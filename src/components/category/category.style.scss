@@ -35,6 +35,10 @@
       align-items: center;
       cursor: pointer;
 
+      &:hover p{
+        transform: scale(1.2);
+      }
+
       p{
         font-size: 3rem;
         font-weight: 1000;

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import './App.scss';
-
 import Home from './pages/home/home.component';
 import Play from './pages/play/play.component';
+import Result from './pages/result/result.component';
+
+import './App.scss';
 
 class App extends React.Component {
   // Using componentDidMount() lifecycle method, we will do our API call here.
@@ -15,6 +16,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/play' component={Play} />
+          <Route exact path='/result' component={Result} />
         </Switch>
       </div>
     );

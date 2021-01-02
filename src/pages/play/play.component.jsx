@@ -27,14 +27,20 @@ class Play extends React.Component {
           <span className='word'>Police</span>
         </div>
         <div className='play-buttons'>
+          <svg className='exit-button'>
+            <use href={sprite + '#exit-button'} />
+          </svg>
           <div className='correct-button'>
             <span className='correct-button__text'>Correct</span>
             <span className='correct-button__shortcut'>(Press Enter)</span>
           </div>
           <div className='next-button'>
             <span className='next-button__text'>Next</span>
-            <span  className='next-button__shortcut'>(Press Spacebar)</span>
+            <span className='next-button__shortcut'>(Press Spacebar)</span>
           </div>
+          <svg className='pause-button'>
+            <use href={sprite + '#pause-button'} />
+          </svg>
         </div>
       </div>
     );
