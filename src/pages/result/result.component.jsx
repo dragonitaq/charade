@@ -1,5 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectGuessAmount, selectGuessWords, selectCorrectAmount, selectCorrectWords } from '../../redux/vocabulary/vocabulary.selector.js';
 import sprite from '../../assets/sprite.svg';
 
 import './result.style.scss';
@@ -8,6 +11,7 @@ class Result extends React.Component {
   // May not need the lifecycle method. Maybe can convert back to functional component.
 
   render() {
+    const { guessAmount, guessWords, correctAmount, correctWords } = this.props;
     return (
       <div>
         <div className='score-container'>
@@ -16,10 +20,10 @@ class Result extends React.Component {
           </svg>
           <div className='score'>
             <div className='correct-score'>
-              Correct Words: <span>13</span>
+              Correct Words: <span>{correctAmount}</span>
             </div>
             <div className='tried-score'>
-              Tried Words: <span>28</span>
+              Tried Words: <span>{guessAmount}</span>
             </div>
           </div>
           <svg className='icon-replay-button'>
@@ -30,20 +34,17 @@ class Result extends React.Component {
           <div>
             <h3 className='words-list__title'>Correct Words List:</h3>
             <div className='words-list correct-words-list'>
-              <p>Police</p>
-              <p>Happy</p>
-              <p>Muffin</p>
+              {correctWords.map((word) => {
+                return <p>{word.text.toUpperCase()}</p>;
+              })}
             </div>
           </div>
           <div>
             <h3 className='words-list__title'>Tried Words List:</h3>
             <div className='words-list tried-words-list'>
-              <p>Horse</p>
-              <p>Sleep</p>
-              <p>Bus</p>
-              <p>Computer</p>
-              <p>Medicine</p>
-              <p>Coffee</p>
+              {guessWords.map((word) => {
+                return <p>{word.text.toUpperCase()}</p>;
+              })}
             </div>
           </div>
         </div>
@@ -52,4 +53,11 @@ class Result extends React.Component {
   }
 }
 
-export default Result;
+const mapStateToProps = createStructuredSelector({
+  guessAmount: selectGuessAmount,
+  guessWords: selectGuessWords,
+  correctAmount: selectCorrectAmount,
+  correctWords: selectCorrectWords,
+});
+
+export default connect(mapStateToProps)(Result);

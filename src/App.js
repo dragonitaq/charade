@@ -15,6 +15,7 @@ class App extends React.Component {
       <div className='App'>
         <Switch>
           <Route exact path='/' component={Home} />
+          {/* Need to remove these 2 routes in production. */}
           <Route exact path='/play' component={Play} />
           <Route exact path='/result' component={Result} />
         </Switch>

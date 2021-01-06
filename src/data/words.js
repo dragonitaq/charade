@@ -261,7 +261,7 @@ const 运动词汇 = [
   { text: '跳水', correct: false },
 ];
 
-export default allWords = {
+const allWords = {
   mixtureWords,
   occupationWords,
   sportWords,
@@ -269,3 +269,5 @@ export default allWords = {
   职业词汇,
   运动词汇,
 };
+
+export default  allWords
