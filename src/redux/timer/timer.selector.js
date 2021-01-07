@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect';
 
 const selectPlayTimer = (state) => {
-  return state.playTimer;
+  return state.playDuration;
 };
 
-// I hope it's ok to just return a timer variable
-export const selectTimer = createSelector([selectPlayTimer], (playTimer) => {
-  return playTimer.timer;
+export const selectDuration = createSelector([selectPlayTimer], (playDuration) => {
+  return playDuration.duration;
+});
+
+export const selectCurrentTimer = createSelector([selectPlayTimer], (playDuration) => {
+  return playDuration.currentTimer;
 });

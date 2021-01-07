@@ -21,11 +21,11 @@ export const selectWordIndex = createSelector([selectVocabulary], (vocabulary) =
 });
 
 export const selectGuessAmount = createSelector([selectVocabulary], (vocabulary) => {
-  return vocabulary.guessAmount;
+  return vocabulary.guessedAmount;
 });
 
 export const selectGuessWords = createSelector([selectVocabulary], (vocabulary) => {
-  return vocabulary.guessWords;
+  return vocabulary.guessedWords;
 });
 
 export const selectCorrectAmount = createSelector([selectVocabulary], (vocabulary) => {

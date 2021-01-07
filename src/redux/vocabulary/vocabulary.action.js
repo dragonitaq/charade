@@ -23,3 +23,15 @@ export const decreaseWordIndex = () => {
     type: 'decreaseWordIndex',
   };
 };
+
+export const resetGuessedWords = () => {
+  return {
+    type: 'resetGuessedWords',
+  };
+};
+
+export const resetCorrectWords = () => {
+  return {
+    type: 'resetCorrectWords',
+  };
+};

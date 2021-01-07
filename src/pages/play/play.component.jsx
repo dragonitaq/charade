@@ -3,24 +3,44 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 
-import { addCorrectWord, addGuessedWord, updateWordIndex, decreaseWordIndex } from '../../redux/vocabulary/vocabulary.action';
+import { addCorrectWord, addGuessedWord, updateWordIndex, decreaseWordIndex, resetGuessedWords, resetCorrectWords } from '../../redux/vocabulary/vocabulary.action';
+import { convertDurationToInitialTimer, copyInitialTimerToCurrentTimer, countDownTimer } from '../../redux/timer/timer.action';
 import { selectWords, selectWordIndex, selectCorrectAmount } from '../../redux/vocabulary/vocabulary.selector.js';
-import { selectTimer } from '../../redux/timer/timer.selector';
+import { selectCurrentTimer } from '../../redux/timer/timer.selector';
 import sprite from '../../assets/sprite.svg';
 
 import './play.style.scss';
 
 class Play extends React.Component {
-  // We can't deconstruct this.props here because this is class component constructor. So we have to this.props every time we need to use it.
+  constructor(props) {
+    super(props);
+    this.intervalId = null;
+  }
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyPress.bind(this));
+    // Fetch API here.
+
+    document.addEventListener('keydown', this.handleKeyPress);
+    this.props.convertDurationToInitialTimer();
+    this.props.copyInitialTimerToCurrentTimer();
+    this.props.resetGuessedWords();
+    this.props.resetCorrectWords();
     this.props.updateWordIndex();
+    this.intervalId = setInterval(() => {
+      this.props.countDownTimer();
+    }, 1000);
+  }
+
+  componentDidUpdate() {
+    if (this.props.currentTimer === 0) {
+      this.props.history.push('/result');
+    }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyPress.bind(this));
+    document.removeEventListener('keydown', this.handleKeyPress);
     this.props.addGuessedWord(this.props.words[this.props.wordIndex]);
+    clearInterval(this.intervalId);
   }
 
   handleKeyPress = (event) => {
@@ -37,13 +57,13 @@ class Play extends React.Component {
   };
 
   render() {
-    const { words, wordIndex, correctAmount, timer, addCorrectWord, addGuessedWord, decreaseWordIndex, history } = this.props;
+    const { words, wordIndex, correctAmount, currentTimer, addCorrectWord, addGuessedWord, decreaseWordIndex, history } = this.props;
 
     return (
       <div onKeyDown={(event) => this.handleKeyPress(event)}>
         <div className='metrics'>
           <div className='timer'>
-            <div className='timer-count'>{timer}S</div>
+            <div className='timer-count'>{currentTimer}S</div>
             <svg className='sand-timer-icon'>
               <use href={sprite + '#sand-timer'} />
             </svg>
@@ -59,7 +79,7 @@ class Play extends React.Component {
           <span className='word'>{words[wordIndex].text.toUpperCase()}</span>
         </div>
         <div className='play-buttons'>
-          <svg className='exit-button'>
+          <svg className='exit-button' onClick={() => history.push('/')}>
             <use href={sprite + '#exit-button'} />
           </svg>
           <div
@@ -97,6 +117,11 @@ const mapDispatchToProps = (dispatch) => {
     addGuessedWord: (word) => dispatch(addGuessedWord(word)),
     updateWordIndex: () => dispatch(updateWordIndex()),
     decreaseWordIndex: () => dispatch(decreaseWordIndex()),
+    convertDurationToInitialTimer: () => dispatch(convertDurationToInitialTimer()),
+    copyInitialTimerToCurrentTimer: () => dispatch(copyInitialTimerToCurrentTimer()),
+    countDownTimer: () => dispatch(countDownTimer()),
+    resetGuessedWords: () => dispatch(resetGuessedWords()),
+    resetCorrectWords: () => dispatch(resetCorrectWords()),
   };
 };
 
@@ -104,7 +129,7 @@ const mapStateToProps = createStructuredSelector({
   words: selectWords,
   wordIndex: selectWordIndex,
   correctAmount: selectCorrectAmount,
-  timer: selectTimer,
+  currentTimer: selectCurrentTimer,
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Play));

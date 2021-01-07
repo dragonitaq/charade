@@ -5,7 +5,7 @@ import timerReducer from './timer/timer.reducer';
 
 const rootReducer = combineReducers({
   vocabulary: vocabularyReducer,
-  playTimer: timerReducer,
+  playDuration: timerReducer,
 });
 
 export default rootReducer;

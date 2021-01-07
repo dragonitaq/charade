@@ -27,7 +27,7 @@
     cursor: pointer;
 
     &:hover p {
-      transform: scale(1.2);
+      transform: scale(1.2) translateY(-5%)
     }
 
     p {

@@ -6,10 +6,10 @@ export const addNewCorrectWord = (correctWords, payload) => {
   return [...correctWords, payload];
 };
 
-export const addNewGuessAmount = (guessAmount) => {
+export const addNewGuessedAmount = (guessAmount) => {
   return (guessAmount = guessAmount + 1);
 };
 
-export const addNewGuessWord = (guessWords, payload) => {
+export const addNewGuessedWord = (guessWords, payload) => {
   return [...guessWords, payload];
 };

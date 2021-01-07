@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCategories } from '../../redux/vocabulary/vocabulary.selector';
 import sprite from '../../assets/sprite.svg';
-import { GameSettings } from '../../components/settings/settings.component';
+import  GameSettings from '../../components/settings/settings.component';
 import Category from '../../components/category/category.component';
 
 import './home.style.scss';

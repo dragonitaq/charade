@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import { selectGuessAmount, selectGuessWords, selectCorrectAmount, selectCorrectWords } from '../../redux/vocabulary/vocabulary.selector.js';
 import sprite from '../../assets/sprite.svg';
@@ -11,11 +12,11 @@ class Result extends React.Component {
   // May not need the lifecycle method. Maybe can convert back to functional component.
 
   render() {
-    const { guessAmount, guessWords, correctAmount, correctWords } = this.props;
+    const { guessAmount, guessWords, correctAmount, correctWords, history } = this.props;
     return (
       <div>
         <div className='score-container'>
-          <svg className='icon-home'>
+          <svg className='icon-home' onClick={() => history.push('/')}>
             <use href={sprite + '#home'} />
           </svg>
           <div className='score'>
@@ -60,4 +61,4 @@ const mapStateToProps = createStructuredSelector({
   correctWords: selectCorrectWords,
 });
 
-export default connect(mapStateToProps)(Result);
+export default withRouter(connect(mapStateToProps)(Result));

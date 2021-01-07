@@ -1,16 +1,14 @@
-import {} from './vocabulary.utils';
-
 import allCategories from '../../data/categories';
 import allWords from '../../data/words';
-import { addNewCorrectAmount, addNewCorrectWord, addNewGuessAmount, addNewGuessWord } from './vocabulary.utils';
+import { addNewCorrectAmount, addNewCorrectWord, addNewGuessedAmount, addNewGuessedWord } from './vocabulary.utils';
 
 const initialState = {
   language: allCategories.enCategories.language, //en-my
   categories: allCategories.enCategories.categories,
   words: allWords.mixtureWords,
   wordIndex: 0,
-  guessAmount: 0,
-  guessWords: [],
+  guessedAmount: 0,
+  guessedWords: [],
   correctAmount: 0,
   correctWords: [],
 };
@@ -22,13 +20,13 @@ const vocabularyReducer = (state = initialState, action) => {
         ...state,
         correctAmount: addNewCorrectAmount(state.correctAmount),
         correctWords: addNewCorrectWord(state.correctWords, action.payload),
-        guessAmount: addNewGuessAmount(state.guessAmount),
+        guessedAmount: addNewGuessedAmount(state.guessedAmount),
       };
     case 'addGuessedWord':
       return {
         ...state,
-        guessAmount: addNewGuessAmount(state.guessAmount),
-        guessWords: addNewGuessWord(state.guessWords, action.payload),
+        guessedAmount: addNewGuessedAmount(state.guessedAmount),
+        guessedWords: addNewGuessedWord(state.guessedWords, action.payload),
       };
     case 'updateWordIndex':
       return {
@@ -39,6 +37,18 @@ const vocabularyReducer = (state = initialState, action) => {
       return {
         ...state,
         wordIndex: state.wordIndex - 1,
+      };
+    case 'resetGuessedWords':
+      return {
+        ...state,
+        guessedAmount: 0,
+        guessedWords: [],
+      };
+    case 'resetCorrectWords':
+      return {
+        ...state,
+        correctAmount: 0,
+        correctWords: [],
       };
     default:
       return state;
