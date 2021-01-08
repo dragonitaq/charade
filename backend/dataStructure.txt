@@ -1,0 +1,42 @@
+categories
+
+id: ObjectId (ObjectId)
+language: "english" (string, required)
+name: "General" (string, required, limited character)
+author: "Kevin" (string, required, unique)
+authorId: users-ObjectId (ObjectId, required, unique)
+createdAt: 2020-01-01 (date, required)
+updatedAt: 2020-01-08 (date)
+description: "Description here." (string, required, limited character)
+likedAmount: 0 (number)
+savedAmount: 0 (number)
+reportedAmount: 0 (number)
+blacklisted: false (boolean)
+nsfw: false (boolean)
+hidden: false (booblean)
+words: [
+  sample text, sample text 2, (string, required, limited character)
+] (Array, required)
+
+
+
+users
+
+id: ObjectId (ObjectId)
+name: "Kevin" (string, required, unique, limited charater)
+email: "sample@email.com" (string, required, unique)
+password: "encrypted-password-here" (string, required)
+createdAt: 2020-01-01 (date, required)
+updatedAt: 2020-01-08 (date)
+preferredLanguage: "english" (string)
+ageVerified: false (boolean)
+paidAmount: 0 (number)
+totalPaidAmount: 0 (number)
+memberValidUntil: 2020-06-01 (date)
+blacklisted: false (boolean)
+createdCategories: [
+  { category: ObjectId }
+] (Array)
+savedCategories: [
+  { category: ObjectId }
+] (Array)
