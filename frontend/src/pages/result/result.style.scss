@@ -28,6 +28,14 @@
   }
 }
 
+.no-more-word {
+  text-align: center;
+
+  p {
+    font-size: 2rem;
+  }
+}
+
 .words-lists {
   display: grid;
   grid-template-columns: 1fr;
@@ -37,7 +45,7 @@
 
   .words-list__title {
     text-align: center;
-    font-size:  2.5rem;
+    font-size: 2.5rem;
   }
 
   .words-list {

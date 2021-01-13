@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 
-import { addCorrectWord, addGuessedWord, updateWordIndex, decreaseWordIndex, resetGuessedWords, resetCorrectWords } from '../../redux/vocabulary/vocabulary.action';
+import { updateWords, addCorrectWord, addGuessedWord, updateWordIndex, decreaseWordIndex, resetGuessedWords, resetCorrectWords } from '../../redux/vocabulary/vocabulary.action';
 import { convertDurationToInitialTimer, copyInitialTimerToCurrentTimer, countDownTimer } from '../../redux/timer/timer.action';
 import { selectWords, selectWordIndex, selectCorrectAmount } from '../../redux/vocabulary/vocabulary.selector.js';
 import { selectCurrentTimer } from '../../redux/timer/timer.selector';
@@ -12,20 +12,16 @@ import sprite from '../../assets/sprite.svg';
 import './play.style.scss';
 
 class Play extends React.Component {
-  constructor(props) {
-    super(props);
-    this.intervalId = null;
-  }
+  state = {
+    intervalId: null,
+  };
 
   componentDidMount() {
-    // Fetch API here.
-
     document.addEventListener('keydown', this.handleKeyPress);
     this.props.convertDurationToInitialTimer();
     this.props.copyInitialTimerToCurrentTimer();
     this.props.resetGuessedWords();
     this.props.resetCorrectWords();
-    this.props.updateWordIndex();
     this.intervalId = setInterval(() => {
       this.props.countDownTimer();
     }, 1000);
@@ -39,7 +35,9 @@ class Play extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
-    this.props.addGuessedWord(this.props.words[this.props.wordIndex]);
+    if (this.props.words[this.props.wordIndex]) {
+      this.props.addGuessedWord(this.props.words[this.props.wordIndex]);
+    }
     clearInterval(this.intervalId);
   }
 
@@ -76,7 +74,7 @@ class Play extends React.Component {
           </div>
         </div>
         <div className='word-container'>
-          <span className='word'>{words[wordIndex].text.toUpperCase()}</span>
+          <span className='word'>{wordIndex >= 0 ? words[wordIndex].toUpperCase() : history.push('/result')}</span>
         </div>
         <div className='play-buttons'>
           <svg className='exit-button' onClick={() => history.push('/')}>
@@ -113,6 +111,7 @@ class Play extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    updateWords: (words) => dispatch(updateWords(words)),
     addCorrectWord: (word) => dispatch(addCorrectWord(word)),
     addGuessedWord: (word) => dispatch(addGuessedWord(word)),
     updateWordIndex: () => dispatch(updateWordIndex()),

@@ -1,6 +1,9 @@
-const app = require('./app');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const fs = require('fs');
+const Category = require('../models/category.model');
+const User = require('../models/user.model');
+const categories = require('../data/categories.data');
 
 dotenv.config({ path: './config.env' });
 
@@ -19,6 +22,15 @@ mongoose
     console.log('Database is connected!');
   });
 
-const server = app.listen(5000, () => {
-  console.log('Server is live at port 5000!');
-});
+const importData = () => {
+  categories.forEach(async (category, i) => {
+    try {
+      await Category.create(category);
+      console.log(`categories data ${i} imported`);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+};
+
+importData();

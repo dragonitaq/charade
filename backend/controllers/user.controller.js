@@ -1,5 +1,5 @@
-exports.categoryController = (req, res) => {
-  console.log(req.params.language);
+exports.userController = (req, res) => {
+  console.log(req.params.username);
 
   res.status(200);
   res.json({

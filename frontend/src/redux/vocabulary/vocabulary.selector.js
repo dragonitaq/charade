@@ -8,8 +8,20 @@ export const selectLanguage = createSelector([selectVocabulary], (vocabulary) =>
   return vocabulary.language;
 });
 
+export const selectNeedLoader = createSelector([selectVocabulary], (vocabulary) => {
+  return vocabulary.needLoader;
+});
+
+export const selectErrorMessage = createSelector([selectVocabulary], (vocabulary) => {
+  return vocabulary.errorMessage;
+});
+
 export const selectCategories = createSelector([selectVocabulary], (vocabulary) => {
   return vocabulary.categories;
+});
+
+export const selectSelectedCategory = createSelector([selectVocabulary], (vocabulary) => {
+  return vocabulary.selectedCategory;
 });
 
 export const selectWords = createSelector([selectVocabulary], (vocabulary) => {
