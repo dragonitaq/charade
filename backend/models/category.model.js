@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema({
     lowercase: true,
     required: [true, 'A category must have its language specified.'],
   },
-  name: {
+  title: {
     type: String,
     required: [true, 'A category must have a name.'],
     // REVIEW Review max length of category name
@@ -27,17 +27,24 @@ const categorySchema = new mongoose.Schema({
     default: Date.now(),
   },
   updatedAt: Date,
+  tags: [
+    {
+      type: String,
+    },
+  ],
+  vocabulary: [
+    {
+      type: String,
+      // REVIEW See if we need to have minimum number of array length.
+      required: [true, 'Category must contain as many words/phrases as it should.'],
+    },
+  ],
   likeAmount: Number,
   savedAmount: Number,
   reportedAmount: Number,
   blacklisted: Boolean,
   nsfw: Boolean,
   hidden: Boolean,
-  words: {
-    type: Array,
-    // REVIEW See if we need to have minimum number of array length.
-    required: [true, 'Category must contain as many words/phrases as it should.'],
-  },
 });
 
 const Category = mongoose.model('Category', categorySchema);

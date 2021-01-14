@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectDuration } from '../../redux/timer/timer.selector';
-import { selectLanguage } from '../../redux/vocabulary/vocabulary.selector';
-import { increaseDuration, decreaseDuration } from '../../redux/timer/timer.action';
-import { updateLanguage, getCategoriesAsync, updateWords } from '../../redux/vocabulary/vocabulary.action';
+import { selectDuration } from '../../redux/playDuration/playDuration.selector';
+import { selectLanguage } from '../../redux/playContent/playContent.selector';
+import { increaseDuration, decreaseDuration } from '../../redux/playDuration/playDuration.action';
+import { updateLanguage, getCategoriesAsync, updateItems } from '../../redux/playContent/playContent.action';
 import sprite from '../../assets/sprite.svg';
 
 import './settings.style.scss';
@@ -76,7 +76,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateLanguage: (language) => dispatch(updateLanguage(language)),
     getCategoriesAsync: (language) => dispatch(getCategoriesAsync(language)),
-    updateWords: (words) => dispatch(updateWords(words)),
+    updateItems: (vocabulary) => dispatch(updateItems(vocabulary)),
     increaseDuration: () => dispatch(increaseDuration()),
     decreaseDuration: () => dispatch(decreaseDuration()),
   };

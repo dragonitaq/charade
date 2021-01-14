@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import vocabularyReducer from './vocabulary/vocabulary.reducer';
-import timerReducer from './timer/timer.reducer';
+import playContentReducer from './playContent/playContent.reducer';
+import playDurationReducer from './playDuration/playDuration.reducer';
 
 const rootReducer = combineReducers({
-  vocabulary: vocabularyReducer,
-  playDuration: timerReducer,
+  playContent: playContentReducer,
+  playDuration: playDurationReducer,
 });
 
 export default rootReducer;

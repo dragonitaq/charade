@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'A user document must have date of creation.'],
     default: Date.now(),
   },
+  lastLoginAt: Date,
   updatedAt: Date,
   preferredLanguage: String,
   paidAmount: {

@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 
-import { updateWords, addCorrectWord, addGuessedWord, updateWordIndex, decreaseWordIndex, resetGuessedWords, resetCorrectWords } from '../../redux/vocabulary/vocabulary.action';
-import { convertDurationToInitialTimer, copyInitialTimerToCurrentTimer, countDownTimer } from '../../redux/timer/timer.action';
-import { selectWords, selectWordIndex, selectCorrectAmount } from '../../redux/vocabulary/vocabulary.selector.js';
-import { selectCurrentTimer } from '../../redux/timer/timer.selector';
+import { updateItems, addCorrectWord, addGuessedWord, updateItemIndex, decreaseItemIndex, resetGuessedItems, resetCorrectItems } from '../../redux/playContent/playContent.action';
+import { convertDurationToInitialTimer, copyInitialTimerToCurrentTimer, countDownTimer } from '../../redux/playDuration/playDuration.action';
+import { selectVocabulary, selectItemIndex, selectCorrectAmount } from '../../redux/playContent/playContent.selector';
+import { selectCurrentTimer } from '../../redux/playDuration/playDuration.selector';
 import sprite from '../../assets/sprite.svg';
 
 import './play.style.scss';
@@ -20,8 +20,8 @@ class Play extends React.Component {
     document.addEventListener('keydown', this.handleKeyPress);
     this.props.convertDurationToInitialTimer();
     this.props.copyInitialTimerToCurrentTimer();
-    this.props.resetGuessedWords();
-    this.props.resetCorrectWords();
+    this.props.resetGuessedItems();
+    this.props.resetCorrectItems();
     this.intervalId = setInterval(() => {
       this.props.countDownTimer();
     }, 1000);
@@ -35,8 +35,8 @@ class Play extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
-    if (this.props.words[this.props.wordIndex]) {
-      this.props.addGuessedWord(this.props.words[this.props.wordIndex]);
+    if (this.props.vocabulary[this.props.itemIndex]) {
+      this.props.addGuessedWord(this.props.vocabulary[this.props.itemIndex]);
     }
     clearInterval(this.intervalId);
   }
@@ -44,18 +44,18 @@ class Play extends React.Component {
   handleKeyPress = (event) => {
     // Space key pressed
     if (event.keyCode === 32) {
-      this.props.addGuessedWord(this.props.words[this.props.wordIndex]);
-      this.props.decreaseWordIndex();
+      this.props.addGuessedWord(this.props.vocabulary[this.props.itemIndex]);
+      this.props.decreaseItemIndex();
     }
     // Enter key pressed
     if (event.keyCode === 13) {
-      this.props.addCorrectWord(this.props.words[this.props.wordIndex]);
-      this.props.decreaseWordIndex();
+      this.props.addCorrectWord(this.props.vocabulary[this.props.itemIndex]);
+      this.props.decreaseItemIndex();
     }
   };
 
   render() {
-    const { words, wordIndex, correctAmount, currentTimer, addCorrectWord, addGuessedWord, decreaseWordIndex, history } = this.props;
+    const { vocabulary, itemIndex, correctAmount, currentTimer, addCorrectWord, addGuessedWord, decreaseItemIndex, history } = this.props;
 
     return (
       <div onKeyDown={(event) => this.handleKeyPress(event)}>
@@ -73,8 +73,8 @@ class Play extends React.Component {
             <div className='score-count'>{correctAmount}</div>
           </div>
         </div>
-        <div className='word-container'>
-          <span className='word'>{wordIndex >= 0 ? words[wordIndex].toUpperCase() : history.push('/result')}</span>
+        <div className='item-container'>
+          <span className='item'>{itemIndex >= 0 ? vocabulary[itemIndex].toUpperCase() : history.push('/result')}</span>
         </div>
         <div className='play-buttons'>
           <svg className='exit-button' onClick={() => history.push('/')}>
@@ -83,8 +83,8 @@ class Play extends React.Component {
           <div
             className='correct-button'
             onClick={() => {
-              addCorrectWord(words[wordIndex]);
-              decreaseWordIndex();
+              addCorrectWord(vocabulary[itemIndex]);
+              decreaseItemIndex();
             }}
           >
             <span className='correct-button__text'>Correct</span>
@@ -93,15 +93,15 @@ class Play extends React.Component {
           <div
             className='next-button'
             onClick={() => {
-              addGuessedWord(words[wordIndex]);
-              decreaseWordIndex();
+              addGuessedWord(vocabulary[itemIndex]);
+              decreaseItemIndex();
             }}
           >
             <span className='next-button__text'>Next</span>
             <span className='next-button__shortcut'>(Press Spacebar)</span>
           </div>
           <svg className='pause-button' onClick={() => history.push('/result')}>
-            <use href={sprite + '#pause-button'} />
+            <use href={sprite + '#sound'} />
           </svg>
         </div>
       </div>
@@ -111,22 +111,22 @@ class Play extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateWords: (words) => dispatch(updateWords(words)),
-    addCorrectWord: (word) => dispatch(addCorrectWord(word)),
-    addGuessedWord: (word) => dispatch(addGuessedWord(word)),
-    updateWordIndex: () => dispatch(updateWordIndex()),
-    decreaseWordIndex: () => dispatch(decreaseWordIndex()),
+    updateItems: (vocabulary) => dispatch(updateItems(vocabulary)),
+    addCorrectWord: (item) => dispatch(addCorrectWord(item)),
+    addGuessedWord: (item) => dispatch(addGuessedWord(item)),
+    updateItemIndex: () => dispatch(updateItemIndex()),
+    decreaseItemIndex: () => dispatch(decreaseItemIndex()),
     convertDurationToInitialTimer: () => dispatch(convertDurationToInitialTimer()),
     copyInitialTimerToCurrentTimer: () => dispatch(copyInitialTimerToCurrentTimer()),
     countDownTimer: () => dispatch(countDownTimer()),
-    resetGuessedWords: () => dispatch(resetGuessedWords()),
-    resetCorrectWords: () => dispatch(resetCorrectWords()),
+    resetGuessedItems: () => dispatch(resetGuessedItems()),
+    resetCorrectItems: () => dispatch(resetCorrectItems()),
   };
 };
 
 const mapStateToProps = createStructuredSelector({
-  words: selectWords,
-  wordIndex: selectWordIndex,
+  vocabulary: selectVocabulary,
+  itemIndex: selectItemIndex,
   correctAmount: selectCorrectAmount,
   currentTimer: selectCurrentTimer,
 });

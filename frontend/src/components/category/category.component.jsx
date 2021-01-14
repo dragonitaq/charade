@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectCategories } from '../../redux/vocabulary/vocabulary.selector';
-import { selectCategory, updateWords, updateWordIndex } from '../../redux/vocabulary/vocabulary.action';
+import { selectCategories } from '../../redux/playContent/playContent.selector';
+import { selectCategory, updateItems, updateItemIndex } from '../../redux/playContent/playContent.action';
 
 import './category.style.scss';
 
@@ -33,26 +33,30 @@ class Category extends React.Component {
   }
 
   // Hope it's ok to do all actions in one function.
-  selectAndShuffleAndUpdateWords(categoryId) {
+  selectAndShuffleAndUpdateItems(categoryId) {
     const selectedCategory = this.props.categories.find((category) => category._id === categoryId);
     this.props.selectCategory(selectedCategory);
-    const shuffledWords = this.shuffle(selectedCategory.words);
-    this.props.updateWords(shuffledWords);
+    const shuffledItems = this.shuffle(selectedCategory.vocabulary);
+    this.props.updateItems(shuffledItems);
   }
 
   render() {
-    const { categoryName, categoryId, updateWordIndex } = this.props;
+    const { category, updateItemIndex } = this.props;
     return (
+      // TODO Get vocabulary length and display it
       <div className='category-card'>
-        <div className='category-name'>
-          <p>{categoryName.toUpperCase()}</p>
+        <div className='category-details'>
+          <h3 className='category-details__title'>{category.title.toUpperCase()}</h3>
+          <div className='category-divider'></div>
+          <p className='category-details__description'>{category.description}</p>
+          <p className='category-details__author'>{`Author: ${category.authorName}`}</p>
         </div>
         <div
           className='category-btn'
           onClick={() => {
             // The order of these functions is important
-            this.selectAndShuffleAndUpdateWords(categoryId);
-            updateWordIndex();
+            this.selectAndShuffleAndUpdateItems(category._id);
+            updateItemIndex();
             this.redirectToPlay();
           }}
         >
@@ -66,8 +70,8 @@ class Category extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     selectCategory: (category) => dispatch(selectCategory(category)),
-    updateWords: (words) => dispatch(updateWords(words)),
-    updateWordIndex: () => dispatch(updateWordIndex()),
+    updateItems: (vocabulary) => dispatch(updateItems(vocabulary)),
+    updateItemIndex: () => dispatch(updateItemIndex()),
   };
 };
 

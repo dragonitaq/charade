@@ -12,24 +12,24 @@
 
   h1 {
     text-transform: uppercase;
-    font-size: 3.5rem;
+    font-size: 5rem;
   }
 }
 
-.categories {
+.categories-container {
   padding: 2rem;
 
   .categories-title {
     text-align: center;
     margin-bottom: 3rem;
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
-  .category {
+  .categories {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) ;
     grid-template-rows: auto;
     justify-items: center;
-    grid-gap: 0 0.5rem;
+    grid-gap: 1.5rem 1.5rem;
   }
 }

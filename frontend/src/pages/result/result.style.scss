@@ -28,7 +28,7 @@
   }
 }
 
-.no-more-word {
+.no-more-item {
   text-align: center;
 
   p {
@@ -36,19 +36,19 @@
   }
 }
 
-.words-lists {
+.vocabulary-lists {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   justify-items: center;
   padding: 2rem 1rem;
 
-  .words-list__title {
+  .vocabulary-list__title {
     text-align: center;
     font-size: 2.5rem;
   }
 
-  .words-list {
+  .vocabulary-list {
     width: 30rem;
     height: 20rem;
     border-radius: 30px;
@@ -60,11 +60,11 @@
     }
   }
 
-  .correct-words-list {
+  .correct-vocabulary-list {
     background-color: var(--color-tertiary);
   }
 
-  .tried-words-list {
+  .tried-vocabulary-list {
     background-color: var(--color-secondary);
   }
 }

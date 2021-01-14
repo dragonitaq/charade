@@ -34,13 +34,13 @@
   }
 }
 
-.word-container {
+.item-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60vh;
 
-  .word {
+  .item {
     font-size: 15rem;
   }
 }

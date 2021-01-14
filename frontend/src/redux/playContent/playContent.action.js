@@ -43,48 +43,48 @@ export const selectCategory = (category) => {
 };
 
 
-export const updateWords = (words) => {
+export const updateItems = (vocabulary) => {
   return {
-    type: 'updateWords',
-    payload: words,
+    type: 'updateItems',
+    payload: vocabulary,
   };
 };
 
-export const addCorrectWord = (word) => {
+export const addCorrectWord = (item) => {
   return {
     type: 'addCorrectWord',
-    payload: word,
+    payload: item,
   };
 };
 
-export const addGuessedWord = (word) => {
+export const addGuessedWord = (item) => {
   return {
     type: 'addGuessedWord',
-    payload: word,
+    payload: item,
   };
 };
 
-export const updateWordIndex = () => {
+export const updateItemIndex = () => {
   return {
-    type: 'updateWordIndex',
+    type: 'updateItemIndex',
   };
 };
 
-export const decreaseWordIndex = () => {
+export const decreaseItemIndex = () => {
   return {
-    type: 'decreaseWordIndex',
+    type: 'decreaseItemIndex',
   };
 };
 
-export const resetGuessedWords = () => {
+export const resetGuessedItems = () => {
   return {
-    type: 'resetGuessedWords',
+    type: 'resetGuessedItems',
   };
 };
 
-export const resetCorrectWords = () => {
+export const resetCorrectItems = () => {
   return {
-    type: 'resetCorrectWords',
+    type: 'resetCorrectItems',
   };
 };
 

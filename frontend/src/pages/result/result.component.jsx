@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 
-import { selectSelectedCategory, selectWordIndex, selectGuessAmount, selectGuessWords, selectCorrectAmount, selectCorrectWords } from '../../redux/vocabulary/vocabulary.selector.js';
-import { updateWords, updateWordIndex } from '../../redux/vocabulary/vocabulary.action';
+import { selectSelectedCategory, selectItemIndex, selectGuessAmount, selectGuessItems, selectCorrectAmount, selectCorrectItems } from '../../redux/playContent/playContent.selector.js';
+import { updateItems, updateItemIndex } from '../../redux/playContent/playContent.action';
 import sprite from '../../assets/sprite.svg';
 
 import './result.style.scss';
@@ -35,13 +35,13 @@ class Result extends React.Component {
     return array;
   };
 
-  shuffleAndUpdateWords = () => {
-    const shuffledWords = this.shuffle(this.props.selectedCategory.words);
-    this.props.updateWords(shuffledWords);
+  shuffleAndUpdateItems = () => {
+    const shuffledItems = this.shuffle(this.props.selectedCategory.vocabulary);
+    this.props.updateItems(shuffledItems);
   };
 
   render() {
-    const { updateWordIndex, wordIndex, guessAmount, guessWords, correctAmount, correctWords, history } = this.props;
+    const { updateItemIndex, itemIndex, guessAmount, guessItems, correctAmount, correctItems, history } = this.props;
     return (
       <div>
         <div className='score-container'>
@@ -50,38 +50,38 @@ class Result extends React.Component {
           </svg>
           <div className='score'>
             <div className='correct-score'>
-              Correct Words: <span>{correctAmount}</span>
+              Correct Items: <span>{correctAmount}</span>
             </div>
             <div className='tried-score'>
-              Tried Words: <span>{guessAmount}</span>
+              Tried Items: <span>{guessAmount}</span>
             </div>
           </div>
           <svg
             className='icon-replay-button'
             onClick={() => {
-              this.shuffleAndUpdateWords();
-              updateWordIndex();
+              this.shuffleAndUpdateItems();
+              updateItemIndex();
               this.redirectToPlay();
             }}
           >
             <use href={sprite + '#replay-button'} />
           </svg>
         </div>
-        <div className='no-more-word'>{wordIndex < 0 ? <p>You have used up all the words in the category!</p> : null}</div>
-        <div className='words-lists'>
+        <div className='no-more-item'>{itemIndex < 0 ? <p>You have used up all the items in the category!</p> : null}</div>
+        <div className='vocabulary-lists'>
           <div>
-            <h3 className='words-list__title'>Correct Words List:</h3>
-            <div className='words-list correct-words-list'>
-              {correctWords.map((word) => {
-                return <p>{word.toUpperCase()}</p>;
+            <h3 className='vocabulary-list__title'>Correct Items List:</h3>
+            <div className='vocabulary-list correct-vocabulary-list'>
+              {correctItems.map((item) => {
+                return <p>{item.toUpperCase()}</p>;
               })}
             </div>
           </div>
           <div>
-            <h3 className='words-list__title'>Tried Words List:</h3>
-            <div className='words-list tried-words-list'>
-              {guessWords.map((word) => {
-                return <p>{word.toUpperCase()}</p>;
+            <h3 className='vocabulary-list__title'>Tried Items List:</h3>
+            <div className='vocabulary-list tried-vocabulary-list'>
+              {guessItems.map((item) => {
+                return <p>{item.toUpperCase()}</p>;
               })}
             </div>
           </div>
@@ -93,18 +93,18 @@ class Result extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateWords: (words) => dispatch(updateWords(words)),
-    updateWordIndex: () => dispatch(updateWordIndex()),
+    updateItems: (vocabulary) => dispatch(updateItems(vocabulary)),
+    updateItemIndex: () => dispatch(updateItemIndex()),
   };
 };
 
 const mapStateToProps = createStructuredSelector({
   selectedCategory: selectSelectedCategory,
-  wordIndex: selectWordIndex,
+  itemIndex: selectItemIndex,
   guessAmount: selectGuessAmount,
-  guessWords: selectGuessWords,
+  guessItems: selectGuessItems,
   correctAmount: selectCorrectAmount,
-  correctWords: selectCorrectWords,
+  correctItems: selectCorrectItems,
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Result));

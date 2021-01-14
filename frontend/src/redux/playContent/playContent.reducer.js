@@ -1,4 +1,4 @@
-import { addNewCorrectAmount, addNewCorrectWord, addNewGuessedAmount, addNewGuessedWord } from './vocabulary.utils';
+import { addNewCorrectAmount, addNewCorrectWord, addNewGuessedAmount, addNewGuessedWord } from './playContent.utils';
 
 const initialState = {
   language: '',
@@ -8,12 +8,12 @@ const initialState = {
   errorMessage: '',
   categories: [],
   selectedCategory: {},
-  words: [],
-  wordIndex: 0,
+  vocabulary: [],
+  itemIndex: 0,
   guessedAmount: 0,
-  guessedWords: [],
+  guessedItems: [],
   correctAmount: 0,
-  correctWords: [],
+  correctItems: [],
 };
 
 const vocabularyReducer = (state = initialState, action) => {
@@ -50,45 +50,45 @@ const vocabularyReducer = (state = initialState, action) => {
         ...state,
         selectedCategory: action.payload,
       };
-    case 'updateWords':
+    case 'updateItems':
       return {
         ...state,
-        words: action.payload,
+        vocabulary: action.payload,
       };
     case 'addCorrectWord':
       return {
         ...state,
         correctAmount: addNewCorrectAmount(state.correctAmount),
-        correctWords: addNewCorrectWord(state.correctWords, action.payload),
+        correctItems: addNewCorrectWord(state.correctItems, action.payload),
         guessedAmount: addNewGuessedAmount(state.guessedAmount),
       };
     case 'addGuessedWord':
       return {
         ...state,
         guessedAmount: addNewGuessedAmount(state.guessedAmount),
-        guessedWords: addNewGuessedWord(state.guessedWords, action.payload),
+        guessedItems: addNewGuessedWord(state.guessedItems, action.payload),
       };
-    case 'updateWordIndex':
+    case 'updateItemIndex':
       return {
         ...state,
-        wordIndex: state.words.length - 1,
+        itemIndex: state.vocabulary.length - 1,
       };
-    case 'decreaseWordIndex':
+    case 'decreaseItemIndex':
       return {
         ...state,
-        wordIndex: state.wordIndex - 1,
+        itemIndex: state.itemIndex - 1,
       };
-    case 'resetGuessedWords':
+    case 'resetGuessedItems':
       return {
         ...state,
         guessedAmount: 0,
-        guessedWords: [],
+        guessedItems: [],
       };
-    case 'resetCorrectWords':
+    case 'resetCorrectItems':
       return {
         ...state,
         correctAmount: 0,
-        correctWords: [],
+        correctItems: [],
       };
     default:
       return state;

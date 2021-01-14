@@ -1,17 +1,28 @@
 .category-card {
   text-align: center;
 
-  .category-name {
+  .category-details {
     height: 20rem;
     width: 25rem;
     background-color: var(--color-secondary);
     border-radius: 17% 17% 0 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    p {
+
+    .category-details__title {
       transform: translateY(-1rem);
       font-size: 3rem;
+    }
+
+    .category-divider {
+    }
+
+    .category-details__description {
+    }
+
+    .category-details__author {
     }
   }
 
@@ -27,7 +38,7 @@
     cursor: pointer;
 
     &:hover p {
-      transform: scale(1.2) translateY(-5%)
+      transform: scale(1.2) translateY(-5%);
     }
 
     p {
