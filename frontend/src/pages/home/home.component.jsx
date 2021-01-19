@@ -6,7 +6,7 @@ import sprite from '../../assets/sprite.svg';
 import { selectNeedLoader, selectErrorMessage, selectCategories } from '../../redux/playContent/playContent.selector';
 import GameSettings from '../../components/settings/settings.component';
 import Category from '../../components/category/category.component';
-import Loader from '../../components/loader/loader.component';
+import Loader from '../../components/loader/commonLoader.component';
 
 import './home.style.scss';
 
@@ -26,22 +26,24 @@ class Home extends React.Component {
         </div>
         <div className='categories-container'>
           <h2 className='categories-title'>Categories</h2>
-          <div className='categories'>
-            {/* Check if component need loader to display, if not then check if the data fetching consists of error message, if not then only render categories component. */}
-            {needLoader ? (
-              <Loader />
-            ) : (
-              [
-                errorMessage ? (
-                  <div>{`${errorMessage}`}</div>
-                ) : (
-                  categories.map((category) => {
+          {/* <div className='categories'> */}
+          {/* Check if component need loader to display, if not then check if the data fetching consists of error message, if not then only render categories component. */}
+          {needLoader ? (
+            <Loader />
+          ) : (
+            [
+              errorMessage ? (
+                <div className='error-message'>{`Error: ${errorMessage}`}</div>
+              ) : (
+                <div className='categories'>
+                  {categories.map((category) => {
                     return <Category id={category._id} category={category} />;
-                  })
-                ),
-              ]
-            )}
-          </div>
+                  })}
+                </div>
+              ),
+            ]
+          )}
+          {/* </div> */}
         </div>
       </div>
     );

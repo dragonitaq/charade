@@ -94,10 +94,10 @@ export const getCategoriesAsync = (language) => {
   return (dispatch) => {
     dispatch(getCategoriesStart());
 
-    //This is use to text loader animation with 3 seconds delay
+    // This is use to text loader animation with 3 seconds delay
     // setTimeout(() => {
     //   axios
-    //     .get(`http://localhost:5000/api/v1/category/${language}`)
+    //     .get(`http://localhost:4000/api/v1/category/${language}`)
     //     .then((response) => {
     //       dispatch(updateCategories(response.data.data));
     //     })
@@ -107,7 +107,7 @@ export const getCategoriesAsync = (language) => {
     // }, 3000);
 
     axios
-      .get(`http://localhost:5000/api/v1/category/${language}`)
+      .get(`http://192.168.1.11:5000/api/v1/category/${language}`)
       .then((response) => {
         dispatch(updateCategories(response.data.data));
       })

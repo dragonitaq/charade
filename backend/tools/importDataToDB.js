@@ -29,8 +29,6 @@ const importData = () => {
       console.log(error);
     }
   });
-  // This method is force to stop node. We should not use it. But this is just script to handle data in the initial stage and we won't use this anymore in production, so that is ok.
-  // process.exit();
 };
 
 const wipeData = async () => {
@@ -40,8 +38,6 @@ const wipeData = async () => {
   } catch (error) {
     console.log(error);
   }
-  // This method is force to stop node. We should not use it. But this is just script to handle data in the initial stage and we won't use this anymore in production, so that is ok.
-  process.exit();
 };
 
 if (process.argv[2] === '--import') {

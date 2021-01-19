@@ -10,7 +10,7 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, 'A category must have a name.'],
     // REVIEW Review max length of category name
-    maxlength: [25, 'A category name can only have maximum of 25 characters.'],
+    maxlength: [30, 'A category name can only have maximum of 30 characters.'],
   },
   description: {
     type: String,

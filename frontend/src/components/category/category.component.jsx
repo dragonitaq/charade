@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCategories } from '../../redux/playContent/playContent.selector';
 import { selectCategory, updateItems, updateItemIndex } from '../../redux/playContent/playContent.action';
+import sprite from '../../assets/sprite.svg';
 
 import './category.style.scss';
 
@@ -42,17 +43,55 @@ class Category extends React.Component {
 
   render() {
     const { category, updateItemIndex } = this.props;
+
+    // Safari can't coerce array into string. So I have to use for-loop.
+    let formattedTags;
+    for (let ii = 0; ii < category.tags.length; ii++) {
+      if (formattedTags) {
+        formattedTags = `${formattedTags} #${category.tags[ii]}`;
+      } else {
+        formattedTags = `#${category.tags[ii]}`;
+      }
+    }
+
     return (
-      // TODO Get vocabulary length and display it
       <div className='category-card'>
         <div className='category-details'>
           <h3 className='category-details__title'>{category.title.toUpperCase()}</h3>
-          <div className='category-divider'></div>
+          <div className='category-details__horizontal-divider'></div>
           <p className='category-details__description'>{category.description}</p>
-          <p className='category-details__author'>{`Author: ${category.authorName}`}</p>
+          <div className='category-details__tags'>
+            <p className='category-details__items'>{formattedTags}</p>
+          </div>
+          <div className='category-details__meta'>
+            <p className='category-details__author'>{`Author: ${category.authorName}`}</p>
+            {/* <div className='category-details__vertical-divider'>&#10240;</div> */}
+            {/* <div className='category-details__vertical-divider'></div> */}
+            <p className='category-details__item-count'>{`${category.vocabulary.length} items`}</p>
+          </div>
+          <div className='category-details__btn'>
+            <div className='category-details__btn-like' title='like'>
+              <svg className='category-details__btn-icon'>
+                <use href={sprite + '#like'} />
+              </svg>
+              <p className='category-details__btn-like--number'>{category.likedAmount ? category.likedAmount : '0'}</p>
+            </div>
+            <div className='category-details__btn-save' title='save'>
+              <svg className=' category-details__btn-icon'>
+                <use href={sprite + '#save'} />
+              </svg>
+              <p className='category-details__btn-save--number'>{category.savedAmount ? category.savedAmount : '0'}</p>
+            </div>
+            <div className='category-details__btn-report' title='report'>
+              <svg className=' category-details__btn-icon'>
+                <use href={sprite + '#report'} />
+              </svg>
+              <p className='category-details__btn-report--number'>Report</p>
+            </div>
+          </div>
         </div>
         <div
-          className='category-btn'
+          className='category-play-btn'
           onClick={() => {
             // The order of these functions is important
             this.selectAndShuffleAndUpdateItems(category._id);
