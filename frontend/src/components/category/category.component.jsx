@@ -14,6 +14,7 @@ class Category extends React.Component {
     this.props.history.push('/play');
   }
 
+  // This is array shuffling algorithm known as Fisher–Yates Shuffle. Credit: https://bost.ocks.org/mike/shuffle/
   shuffle(array) {
     let currentIndex = array.length,
       temporaryValue,
@@ -44,7 +45,11 @@ class Category extends React.Component {
   render() {
     const { category, updateItemIndex } = this.props;
 
-    // Safari can't coerce array into string. So I have to use for-loop.
+    // Coerce array into string (Work in Chrome)
+    // const coercedTags = `#${category.tags}`;
+    // const formattedTags = coercedTags.replaceAll(',', ' #');
+
+    // I found out Safari can't coerce array into string. Not sure about Firefox. So I have to use for-loop.
     let formattedTags;
     for (let ii = 0; ii < category.tags.length; ii++) {
       if (formattedTags) {
@@ -65,8 +70,6 @@ class Category extends React.Component {
           </div>
           <div className='category-details__meta'>
             <p className='category-details__author'>{`Author: ${category.authorName}`}</p>
-            {/* <div className='category-details__vertical-divider'>&#10240;</div> */}
-            {/* <div className='category-details__vertical-divider'></div> */}
             <p className='category-details__item-count'>{`${category.vocabulary.length} items`}</p>
           </div>
           <div className='category-details__btn'>

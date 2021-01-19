@@ -16,6 +16,7 @@ class Result extends React.Component {
     this.props.history.push('/play');
   };
 
+  // REVIEW Actually, the whole items shuffling and update itemIndex operation should be done within /play page component. Because I couldn't get the itemIndex variable right due to async React callback. But I get solution which is to leverage setTimeout function with delay=0 to ensure the `itemIndex.length` get executed in the last order of the execution stack. 
   shuffle = (array) => {
     let currentIndex = array.length,
       temporaryValue,
@@ -50,10 +51,12 @@ class Result extends React.Component {
           </svg>
           <div className='score'>
             <div className='correct-score'>
-              Correct Items: <span>{correctAmount}</span>
+              Correct:
+              <span>{` ${correctAmount}`}</span>
             </div>
             <div className='tried-score'>
-              Tried Items: <span>{guessAmount}</span>
+              Tried:
+              <span>{` ${guessAmount}`}</span>
             </div>
           </div>
           <svg
@@ -67,20 +70,21 @@ class Result extends React.Component {
             <use href={sprite + '#replay-button'} />
           </svg>
         </div>
+        {/* This message will display only when user used up all the items yet the timer hasn't finish. */}
         <div className='no-more-item'>{itemIndex < 0 ? <p>You have used up all the items in the category!</p> : null}</div>
-        <div className='vocabulary-lists'>
-          <div>
-            <h3 className='vocabulary-list__title'>Correct Items List:</h3>
-            <div className='vocabulary-list correct-vocabulary-list'>
-              {correctItems.map((item) => {
+        <div className='vocabulary-items'>
+          <div className='vocabulary-items__container vocabulary-items__container--tried'>
+            <h3 className='vocabulary-item__title'>Tried Item(s) List:</h3>
+            <div>
+              {guessItems.map((item) => {
                 return <p>{item.toUpperCase()}</p>;
               })}
             </div>
           </div>
-          <div>
-            <h3 className='vocabulary-list__title'>Tried Items List:</h3>
-            <div className='vocabulary-list tried-vocabulary-list'>
-              {guessItems.map((item) => {
+          <div className='vocabulary-items__container vocabulary-items__container--correct'>
+            <h3 className='vocabulary-item__title'>Correct Item(s) List:</h3>
+            <div>
+              {correctItems.map((item) => {
                 return <p>{item.toUpperCase()}</p>;
               })}
             </div>

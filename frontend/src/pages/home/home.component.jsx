@@ -26,15 +26,16 @@ class Home extends React.Component {
         </div>
         <div className='categories-container'>
           <h2 className='categories-title'>Categories</h2>
-          {/* <div className='categories'> */}
           {/* Check if component need loader to display, if not then check if the data fetching consists of error message, if not then only render categories component. */}
           {needLoader ? (
             <Loader />
           ) : (
             [
+              // If the API call receives error, display the error message.
               errorMessage ? (
                 <div className='error-message'>{`Error: ${errorMessage}`}</div>
               ) : (
+                // If API call is successful, then only render the categories content.
                 <div className='categories'>
                   {categories.map((category) => {
                     return <Category id={category._id} category={category} />;
@@ -43,7 +44,6 @@ class Home extends React.Component {
               ),
             ]
           )}
-          {/* </div> */}
         </div>
       </div>
     );

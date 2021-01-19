@@ -8,8 +8,6 @@ import Result from './pages/result/result.component';
 import './App.scss';
 
 class App extends React.Component {
-  // Using componentDidMount() lifecycle method, we will do our API call here.
-
   render() {
     return (
       <div className='App'>

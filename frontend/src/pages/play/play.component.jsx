@@ -22,32 +22,36 @@ class Play extends React.Component {
     this.props.copyInitialTimerToCurrentTimer();
     this.props.resetGuessedItems();
     this.props.resetCorrectItems();
+    // Make the timer tick for each second
     this.intervalId = setInterval(() => {
       this.props.countDownTimer();
     }, 1000);
   }
 
   componentDidUpdate() {
+    // Every time this component update, check the timer. When the timer reaches 0 second, redirect to /result page.
     if (this.props.currentTimer === 0) {
       this.props.history.push('/result');
     }
   }
 
   componentWillUnmount() {
+    // Remove keydown event listener to prevent user pressing space or enter again.
     document.removeEventListener('keydown', this.handleKeyPress);
     if (this.props.vocabulary[this.props.itemIndex]) {
       this.props.addGuessedWord(this.props.vocabulary[this.props.itemIndex]);
     }
+    // Stop the timer count.
     clearInterval(this.intervalId);
   }
 
   handleKeyPress = (event) => {
-    // Space key pressed
+    // When space key is pressed, update guessedWord array
     if (event.keyCode === 32) {
       this.props.addGuessedWord(this.props.vocabulary[this.props.itemIndex]);
       this.props.decreaseItemIndex();
     }
-    // Enter key pressed
+    // When enter key is pressed, update correctWord array
     if (event.keyCode === 13) {
       this.props.addCorrectWord(this.props.vocabulary[this.props.itemIndex]);
       this.props.decreaseItemIndex();
@@ -100,6 +104,7 @@ class Play extends React.Component {
             <span className='next-button__text'>Next</span>
             <span className='next-button__shortcut'>(Press Spacebar)</span>
           </div>
+          {/* At the moment, I modify this mute button to end the game for development purpose. */}
           <svg className='pause-button' onClick={() => history.push('/result')}>
             <use href={sprite + '#sound'} />
           </svg>

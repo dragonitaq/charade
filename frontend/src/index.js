@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import App from './App';
+import ScrollToTop from './utils/scrollToTop';
 import store from './redux/store';
 
 import './index.scss';
@@ -11,9 +12,11 @@ import './index.scss';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <ScrollToTop>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </ScrollToTop>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
