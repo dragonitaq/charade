@@ -1,4 +1,6 @@
 /*
+This implementation is from official Redux Router.
+
 This is HOC that makes site-wide page reset scrolling position to top after redirection.
 Or just render it bare anywhere you want, but just one: <ScrollToTop/>
 */

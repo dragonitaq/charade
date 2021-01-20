@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
+import textFit from '../../utils/textFit';
 
 import { updateItems, addCorrectWord, addGuessedWord, updateItemIndex, decreaseItemIndex, resetGuessedItems, resetCorrectItems } from '../../redux/playContent/playContent.action';
 import { convertDurationToInitialTimer, copyInitialTimerToCurrentTimer, countDownTimer } from '../../redux/playDuration/playDuration.action';
@@ -22,16 +23,24 @@ class Play extends React.Component {
     this.props.copyInitialTimerToCurrentTimer();
     this.props.resetGuessedItems();
     this.props.resetCorrectItems();
+    // To run textFit for the initial item
+    this.textFit();
     // Make the timer tick for each second
     this.intervalId = setInterval(() => {
       this.props.countDownTimer();
     }, 1000);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(props) {
     // Every time this component update, check the timer. When the timer reaches 0 second, redirect to /result page.
     if (this.props.currentTimer === 0) {
       this.props.history.push('/result');
+    }
+
+    /* To improve performance, textFit only run when the item changes. It also won't run when item finishes. This is because textFit is a large fn which may potentially affect performance.
+    We can access previous state using the props passed in here by Redux. */
+    if (this.props.itemIndex !== props.itemIndex && this.props.itemIndex >= 0) {
+      this.textFit();
     }
   }
 
@@ -44,6 +53,10 @@ class Play extends React.Component {
     // Stop the timer count.
     clearInterval(this.intervalId);
   }
+
+  textFit = () => {
+    textFit(document.getElementsByClassName('item-container'), { maxFontSize: 250 });
+  };
 
   handleKeyPress = (event) => {
     // When space key is pressed, update guessedWord array
@@ -62,28 +75,35 @@ class Play extends React.Component {
     const { vocabulary, itemIndex, correctAmount, currentTimer, addCorrectWord, addGuessedWord, decreaseItemIndex, history } = this.props;
 
     return (
-      <div onKeyDown={(event) => this.handleKeyPress(event)}>
-        <div className='metrics'>
-          <div className='timer'>
-            <div className='timer-count'>{currentTimer}S</div>
-            <svg className='sand-timer-icon'>
-              <use href={sprite + '#sand-timer'} />
+      <div className='play-root' onKeyDown={(event) => this.handleKeyPress(event)}>
+        <div className='play-header'>
+          <div className='metrics'>
+            <div className='timer'>
+              <svg className='sand-timer-icon'>
+                <use href={sprite + '#sand-timer'} />
+              </svg>
+              <div className='timer-count'>{currentTimer}S</div>
+            </div>
+            <div className='score'>
+              <svg className='checkmark-icon'>
+                <use href={sprite + '#checkmark'} />
+              </svg>
+              <div className='score-count'>{correctAmount}</div>
+            </div>
+          </div>
+          <div className='nav-button'>
+            <svg className='exit-button' onClick={() => history.push('/')}>
+              <use href={sprite + '#exit-button'} />
+            </svg>
+            {/* At the moment, I modify this mute button to end the game for development purpose. */}
+            <svg className='mute-button' onClick={() => history.push('/result')}>
+              <use href={sprite + '#sound'} />
             </svg>
           </div>
-          <div className='score'>
-            <svg className='checkmark-icon'>
-              <use href={sprite + '#checkmark'} />
-            </svg>
-            <div className='score-count'>{correctAmount}</div>
-          </div>
         </div>
-        <div className='item-container'>
-          <span className='item'>{itemIndex >= 0 ? vocabulary[itemIndex].toUpperCase() : history.push('/result')}</span>
-        </div>
+        <div className='item-container'>{itemIndex >= 0 ? vocabulary[itemIndex].toUpperCase() : history.push('/result')}</div>
+
         <div className='play-buttons'>
-          <svg className='exit-button' onClick={() => history.push('/')}>
-            <use href={sprite + '#exit-button'} />
-          </svg>
           <div
             className='correct-button'
             onClick={() => {
@@ -104,10 +124,6 @@ class Play extends React.Component {
             <span className='next-button__text'>Next</span>
             <span className='next-button__shortcut'>(Press Spacebar)</span>
           </div>
-          {/* At the moment, I modify this mute button to end the game for development purpose. */}
-          <svg className='pause-button' onClick={() => history.push('/result')}>
-            <use href={sprite + '#sound'} />
-          </svg>
         </div>
       </div>
     );

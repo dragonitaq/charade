@@ -16,7 +16,7 @@ class Result extends React.Component {
     this.props.history.push('/play');
   };
 
-  // REVIEW Actually, the whole items shuffling and update itemIndex operation should be done within /play page component. Because I couldn't get the itemIndex variable right due to async React callback. But I get solution which is to leverage setTimeout function with delay=0 to ensure the `itemIndex.length` get executed in the last order of the execution stack. 
+  // NOTE Actually, the whole items shuffling and update itemIndex operation should be done within /play page component. Because I couldn't get the itemIndex variable right due to async React callback. But I get solution which is to leverage setTimeout function with delay=0 to ensure the `itemIndex.length` get executed in the last order of the execution stack.
   shuffle = (array) => {
     let currentIndex = array.length,
       temporaryValue,
@@ -77,7 +77,7 @@ class Result extends React.Component {
             <h3 className='vocabulary-item__title'>Tried Item(s) List:</h3>
             <div>
               {guessItems.map((item) => {
-                return <p>{item.toUpperCase()}</p>;
+                return <p id={item}>{item.toUpperCase()}</p>;
               })}
             </div>
           </div>
