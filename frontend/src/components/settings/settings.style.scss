@@ -8,7 +8,7 @@
   padding: 1rem;
 
   & > * {
-    padding: 0.5rem;
+    padding: 0.6rem;
   }
 
   h2 {
@@ -44,5 +44,18 @@
       cursor: pointer;
       fill: var(--color-text-white);
     }
+
+    .arrow-icon.arrow-icon--grey {
+      fill: grey;
+    }
+  }
+
+  .how-to-play {
+    color: black;
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+    background-image: linear-gradient(to top, var(--color-tertiary), var(--color-secondary));
+    border-radius: 25px;
+    cursor: pointer;
   }
 }

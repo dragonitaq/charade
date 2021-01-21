@@ -4,7 +4,9 @@ import { createStructuredSelector } from 'reselect';
 
 import sprite from '../../assets/sprite.svg';
 import { selectNeedLoader, selectErrorMessage, selectCategories } from '../../redux/playContent/playContent.selector';
+import { selectShowHowToPlay } from '../../redux/utilities/utilities.selector';
 import GameSettings from '../../components/settings/settings.component';
+import HowToPlay from '../../components/howToPlay/howToPlay.component';
 import Category from '../../components/category/category.component';
 import Loader from '../../components/loader/commonLoader.component';
 
@@ -12,9 +14,10 @@ import './home.style.scss';
 
 class Home extends React.Component {
   render() {
-    const { needLoader, errorMessage, categories } = this.props;
+    const { needLoader, errorMessage, categories, showHowToPlay } = this.props;
     return (
       <div>
+        {showHowToPlay ? <HowToPlay /> : null}
         <div className='header'>
           <svg className='charade-logo'>
             <use href={sprite + '#charade-logo'} />
@@ -54,6 +57,7 @@ const mapStateToProps = createStructuredSelector({
   needLoader: selectNeedLoader,
   errorMessage: selectErrorMessage,
   categories: selectCategories,
+  showHowToPlay: selectShowHowToPlay,
 });
 
 export default connect(mapStateToProps)(Home);
