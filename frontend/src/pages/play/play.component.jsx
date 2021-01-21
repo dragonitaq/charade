@@ -55,7 +55,7 @@ class Play extends React.Component {
   }
 
   textFit = () => {
-    textFit(document.getElementsByClassName('item-container'), { maxFontSize: 250 });
+    textFit(document.getElementsByClassName('item-container'), { maxFontSize: 250, multiLine: true });
   };
 
   handleKeyPress = (event) => {
