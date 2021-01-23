@@ -48,20 +48,6 @@ const categoryId = '600bab00a91a8c142846ac30'; // title: 搞笑短语
 const filePath = '../data/update.txt';
 const encoder = 'utf-8';
 
-// TRY 1
-// const updateVocabulary = () => {
-//   const newArray = convertTxtToArraySync(filePath, encoder);
-//   newArray.forEach(async (element) => {
-//     try {
-//       const newDoc = await Category.findByIdAndUpdate(categoryId, { $addToSet: { vocabulary: element } }, { new: true });
-//       console.log(newDoc);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-// };
-
-// TRY 2
 const updateVocabulary = async () => {
   try {
     const newArray = convertTxtToArraySync(filePath, encoder);

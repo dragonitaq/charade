@@ -96,9 +96,9 @@ class Play extends React.Component {
               <use href={sprite + '#exit-button'} />
             </svg>
             {/* At the moment, I modify this mute button to end the game for development purpose. */}
-            <svg className='mute-button' onClick={() => history.push('/result')}>
+            {/* <svg className='mute-button' onClick={() => history.push('/result')}>
               <use href={sprite + '#sound'} />
-            </svg>
+            </svg> */}
           </div>
         </div>
         <div className='item-container'>{itemIndex >= 0 ? vocabulary[itemIndex].toUpperCase() : history.push('/result')}</div>

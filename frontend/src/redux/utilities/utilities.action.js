@@ -3,3 +3,8 @@ export const toggleHowToPlay = () => {
     type: 'toggleHowToPlay',
   };
 };
+export const toggleNoFnPopUp = () => {
+  return {
+    type: 'toggleNoFnPopUp',
+  };
+};

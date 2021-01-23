@@ -41,8 +41,11 @@ convertTxtToArraySync = (filePath, encoder) => {
     console.log('This file has CR');
     textFile = textFile.slice(1);
     newArray = textFile.split('\r');
+  } else {
+    newArray = [];
+    newArray.push(textFile.slice(0));
   }
-
+  
   // Filter out falsy array values to keep array clean. Source: https://stackoverflow.com/questions/281264/remove-empty-elements-from-an-array-in-javascript
   newArray = newArray.filter(function (el) {
     return el;

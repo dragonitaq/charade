@@ -7,3 +7,7 @@ const selectUtilities = (state) => {
 export const selectShowHowToPlay = createSelector([selectUtilities], (showHowToPlay) => {
   return showHowToPlay.showHowToPlay;
 });
+
+export const selectShowNoFnPopUp = createSelector([selectUtilities], (showNoFnPopUp) => {
+  return showNoFnPopUp.showNoFnPopUp;
+});

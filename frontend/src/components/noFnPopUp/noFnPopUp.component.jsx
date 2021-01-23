@@ -4,9 +4,9 @@ import './noFnPopUp.component.scss';
 
 const NoFnPopUp = () => {
   return (
-    <div className='noFnPopUp-wrapper'>
-      <div className='noFnPopUp'>This feature not yet available.</div>
-    </div>
+    // <div className='noFnPopUp-wrapper'>
+      <div className='noFnPopUp'>This feature is not available.</div>
+    // </div>
   );
 };
 

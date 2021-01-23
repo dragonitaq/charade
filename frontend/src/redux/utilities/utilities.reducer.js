@@ -1,5 +1,6 @@
 const initialState = {
   showHowToPlay: false,
+  showNoFnPopUp: false,
 };
 
 const timerReducer = (state = initialState, action) => {
@@ -8,6 +9,11 @@ const timerReducer = (state = initialState, action) => {
       return {
         ...state,
         showHowToPlay: !state.showHowToPlay,
+      };
+    case 'toggleNoFnPopUp':
+      return {
+        ...state,
+        showNoFnPopUp: !state.showNoFnPopUp,
       };
     default:
       return state;

@@ -5,14 +5,12 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCategories } from '../../redux/playContent/playContent.selector';
 import { selectCategory, updateItems, updateItemIndex } from '../../redux/playContent/playContent.action';
+import { toggleNoFnPopUp } from '../../redux/utilities/utilities.action';
 import sprite from '../../assets/sprite.svg';
-import NoFnPopUp from '../noFnPopUp/noFnPopUp.component';
 
 import './category.style.scss';
 
 class Category extends React.Component {
-  state = { showNoFnPopUpSave: false, showNoFnPopUpReport: false };
-
   redirectToPlay() {
     this.props.history.push('/play');
   }
@@ -46,7 +44,7 @@ class Category extends React.Component {
   }
 
   render() {
-    const { category, updateItemIndex } = this.props;
+    const { category, updateItemIndex, toggleNoFnPopUp } = this.props;
 
     // Coerce array into string (Work in Chrome)
     // const coercedTags = `#${category.tags}`;
@@ -76,7 +74,16 @@ class Category extends React.Component {
             <p className='category-details__item-count'>{`${category.vocabulary.length} items`}</p>
           </div>
           <div className='category-details__btn'>
-            <div className='category-details__btn-like' title='like'>
+            <div
+              className='category-details__btn-like'
+              title='like'
+              onClick={() => {
+                toggleNoFnPopUp();
+                setTimeout(() => {
+                  toggleNoFnPopUp();
+                }, 1500);
+              }}
+            >
               <svg className='category-details__btn-icon'>
                 <use href={sprite + '#like'} />
               </svg>
@@ -86,13 +93,12 @@ class Category extends React.Component {
               className='category-details__btn-save'
               title='save'
               onClick={() => {
-                this.setState({ showNoFnPopUpSave: !this.state.showNoFnPopUpSave });
+                toggleNoFnPopUp();
                 setTimeout(() => {
-                  this.setState({ showNoFnPopUpSave: !this.state.showNoFnPopUpSave });
+                  toggleNoFnPopUp();
                 }, 1500);
               }}
             >
-              {this.state.showNoFnPopUpSave ? <NoFnPopUp /> : null}
               <svg className=' category-details__btn-icon'>
                 <use href={sprite + '#save'} />
               </svg>
@@ -102,13 +108,12 @@ class Category extends React.Component {
               className='category-details__btn-report'
               title='report'
               onClick={() => {
-                this.setState({ showNoFnPopUpReport: !this.state.showNoFnPopUpReport });
+                toggleNoFnPopUp();
                 setTimeout(() => {
-                  this.setState({ showNoFnPopUpReport: !this.state.showNoFnPopUpReport });
+                  toggleNoFnPopUp();
                 }, 1500);
               }}
             >
-              {this.state.showNoFnPopUpReport ? <NoFnPopUp/> : null}
               <svg className=' category-details__btn-icon'>
                 <use href={sprite + '#report'} />
               </svg>
@@ -137,6 +142,7 @@ const mapDispatchToProps = (dispatch) => {
     selectCategory: (category) => dispatch(selectCategory(category)),
     updateItems: (vocabulary) => dispatch(updateItems(vocabulary)),
     updateItemIndex: () => dispatch(updateItemIndex()),
+    toggleNoFnPopUp: () => dispatch(toggleNoFnPopUp()),
   };
 };
 

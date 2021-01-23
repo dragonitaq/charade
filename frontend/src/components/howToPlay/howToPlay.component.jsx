@@ -46,7 +46,7 @@ class HowToPlay extends React.Component {
               you end with the amount of point you get.
             </p>
             <p>
-              &#10024; There are different methods to describe the item on screen. For example, one is allowed to act only without making any sound or to make sound effect only without saying a word.
+              &#10024; There are different methods to describe the item on screen. For example, one is only allowed to act without making any sound. Another example is to make sound effect only without saying a word.
               Usually if the method is not the default, it is mentioned in the category's description.
             </p>
           </div>

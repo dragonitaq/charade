@@ -1,19 +1,19 @@
-.noFnPopUp-wrapper {
-  position: relative;
-  
-  .noFnPopUp {
-    border-radius: 10px;
-    background-color: lightgrey;
-    color: black;
-    font-size: 1.2rem;
-    text-align: center;
-    padding: 0.5rem 1rem;
-    width: min-content;
-    height: fit-content;
-    opacity: 0.85;
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: -70%;
-  }
+.noFnPopUp {
+  border-radius: 10px;
+  border-color: red;
+  border-style: solid;
+  border-width: 2px;
+  background-color: var(--color-secondary);
+  color: red;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  width: max-content;
+  height: fit-content;
+  z-index: 1;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  box-shadow: 1px 0px 10px red;
 }

@@ -4,9 +4,10 @@ import { createStructuredSelector } from 'reselect';
 
 import sprite from '../../assets/sprite.svg';
 import { selectNeedLoader, selectErrorMessage, selectCategories } from '../../redux/playContent/playContent.selector';
-import { selectShowHowToPlay } from '../../redux/utilities/utilities.selector';
+import { selectShowHowToPlay, selectShowNoFnPopUp } from '../../redux/utilities/utilities.selector';
 import GameSettings from '../../components/settings/settings.component';
 import HowToPlay from '../../components/howToPlay/howToPlay.component';
+import NoFnPopUp from '../../components/noFnPopUp/noFnPopUp.component';
 import Category from '../../components/category/category.component';
 import Loader from '../../components/loader/commonLoader.component';
 
@@ -14,9 +15,10 @@ import './home.style.scss';
 
 class Home extends React.Component {
   render() {
-    const { needLoader, errorMessage, categories, showHowToPlay } = this.props;
+    const { needLoader, errorMessage, categories, showHowToPlay, ShowNoFnPopUp } = this.props;
     return (
       <div>
+        {ShowNoFnPopUp ? <NoFnPopUp /> : null}
         {showHowToPlay ? <HowToPlay /> : null}
         <div className='header'>
           <svg className='charade-logo'>
@@ -58,6 +60,7 @@ const mapStateToProps = createStructuredSelector({
   errorMessage: selectErrorMessage,
   categories: selectCategories,
   showHowToPlay: selectShowHowToPlay,
+  ShowNoFnPopUp: selectShowNoFnPopUp,
 });
 
 export default connect(mapStateToProps)(Home);
