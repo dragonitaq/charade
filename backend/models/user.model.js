@@ -29,13 +29,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   passwordResetExpiry: Date, // Propose 1 hour after token sent out.
-  createdAt: {
-    type: Date,
-    required: [true, 'A user document must have date of creation.'],
-    default: Date.now(),
-  },
   lastLoginAt: Date,
-  updatedAt: Date,
   preferredLanguage: String,
   paidAmount: {
     type: Number,
@@ -51,6 +45,8 @@ const userSchema = new mongoose.Schema({
   createdCategories: Array,
   savedCategories: Array,
 });
+
+userSchema.set('timestamps', true);
 
 const User = mongoose.model('User', userSchema);
 

@@ -21,12 +21,6 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, 'A category must have a author name.'],
   },
-  createdAt: {
-    type: Date,
-    required: [true, 'A category must have date of creation.'],
-    default: Date.now(),
-  },
-  updatedAt: Date,
   tags: [
     {
       type: String,
@@ -46,6 +40,8 @@ const categorySchema = new mongoose.Schema({
   nsfw: Boolean,
   hidden: Boolean,
 });
+
+categorySchema.set('timestamps', true);
 
 const Category = mongoose.model('Category', categorySchema);
 
