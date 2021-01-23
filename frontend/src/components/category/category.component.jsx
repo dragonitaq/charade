@@ -6,10 +6,13 @@ import { createStructuredSelector } from 'reselect';
 import { selectCategories } from '../../redux/playContent/playContent.selector';
 import { selectCategory, updateItems, updateItemIndex } from '../../redux/playContent/playContent.action';
 import sprite from '../../assets/sprite.svg';
+import NoFnPopUp from '../noFnPopUp/noFnPopUp.component';
 
 import './category.style.scss';
 
 class Category extends React.Component {
+  state = { showNoFnPopUpSave: false, showNoFnPopUpReport: false };
+
   redirectToPlay() {
     this.props.history.push('/play');
   }
@@ -79,13 +82,33 @@ class Category extends React.Component {
               </svg>
               <p className='category-details__btn-like--number'>{category.likedAmount ? category.likedAmount : '0'}</p>
             </div>
-            <div className='category-details__btn-save' title='save'>
+            <div
+              className='category-details__btn-save'
+              title='save'
+              onClick={() => {
+                this.setState({ showNoFnPopUpSave: !this.state.showNoFnPopUpSave });
+                setTimeout(() => {
+                  this.setState({ showNoFnPopUpSave: !this.state.showNoFnPopUpSave });
+                }, 1500);
+              }}
+            >
+              {this.state.showNoFnPopUpSave ? <NoFnPopUp /> : null}
               <svg className=' category-details__btn-icon'>
                 <use href={sprite + '#save'} />
               </svg>
               <p className='category-details__btn-save--number'>{category.savedAmount ? category.savedAmount : '0'}</p>
             </div>
-            <div className='category-details__btn-report' title='report'>
+            <div
+              className='category-details__btn-report'
+              title='report'
+              onClick={() => {
+                this.setState({ showNoFnPopUpReport: !this.state.showNoFnPopUpReport });
+                setTimeout(() => {
+                  this.setState({ showNoFnPopUpReport: !this.state.showNoFnPopUpReport });
+                }, 1500);
+              }}
+            >
+              {this.state.showNoFnPopUpReport ? <NoFnPopUp/> : null}
               <svg className=' category-details__btn-icon'>
                 <use href={sprite + '#report'} />
               </svg>

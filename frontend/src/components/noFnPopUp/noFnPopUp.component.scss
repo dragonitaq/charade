@@ -1,0 +1,19 @@
+.noFnPopUp-wrapper {
+  position: relative;
+  
+  .noFnPopUp {
+    border-radius: 10px;
+    background-color: lightgrey;
+    color: black;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    width: min-content;
+    height: fit-content;
+    opacity: 0.85;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: -70%;
+  }
+}
