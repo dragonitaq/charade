@@ -4,7 +4,7 @@
   "description": "Charades Go is a web app game that build using MERN stack technologies.",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\" "
+    "start": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
   },
   "repository": {
     "type": "git",
