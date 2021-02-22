@@ -9,10 +9,10 @@ const categoryRouter = require('./routers/category.router');
 const app = express();
 
 // Implement CORS for our frontend domain only.
-app.use(cors());
 
 // CORS for development
 if (process.env.NODE_ENV === 'development') {
+  app.use(cors());
   app.options('*', cors());
 }
 
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
   app.use(
     cors({
-      origin: 'https://charadesgo.netlify.app/',
+      origin: 'https://charadesgo.netlify.app',
     })
   );
 }
